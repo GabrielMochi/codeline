@@ -1,0 +1,19 @@
+{
+  "extends": "strongloop",
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "semi": ["error", "never"],
+    "quotes": [ "error", "single" ],
+    "indent": [ "error", 2 ],
+    "space-before-blocks": [ "error", "always" ],
+    "space-before-function-paren": [ "error", "always" ],
+    "strict": ["error", "never"],
+    "comma-dangle": ["error", "never"],
+    "array-bracket-spacing": ["error", "always"]
+  }
+}

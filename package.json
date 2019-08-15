@@ -1,0 +1,32 @@
+{
+  "name": "codeline-server-seller",
+  "version": "0.0.1",
+  "description": "Seller Back-end application",
+  "main": "server.js",
+  "scripts": {
+    "pretest": "eslint --ignore-path .eslintignore .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=development node server"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "boom": "^7.3.0",
+    "connect-redis": "^3.4.1",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "joi": "^14.3.1",
+    "mysql": "^2.17.1",
+    "redis": "^2.8.0",
+    "uniqid": "^5.0.3"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "prettier": "^1.17.0"
+  }
+}
