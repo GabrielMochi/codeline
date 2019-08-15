@@ -30,7 +30,7 @@ INSERT INTO user (
     'Apt 31 Bl 2'
 );
 
-INSERT INTO seller (id, userId) VALUES (0, 0)
+INSERT INTO seller (id, userId) VALUES (0, 1);
 
 INSERT INTO login (
 	email,
