@@ -2,6 +2,7 @@ const { Router } = require('express')
 const boom = require('boom')
 const api = require('./api')
 const login = require('./login')
+const { version } = require('../../package.json')
 
 const router = Router()
 
@@ -17,5 +18,9 @@ router.all('*', (req, res, next) => {
 
 router.use('/login', login)
 router.use('/api', api)
+
+router.get('/', (req, res) => {
+  res.end(`CodeLine API v.${ version }`)
+})
 
 module.exports = router
