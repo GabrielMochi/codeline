@@ -15,18 +15,27 @@ router.post('/seller', asyncMiddleware(async (req, res) => {
 
   if (!isAuthenticated) throw boom.unauthorized()
 
-  try {
-    const userId = await userController.getIdByEmail(req.body.email)
-    const sellerId = await sellerController.getIdByUserId(userId)
+  const userId = await userController.getIdByEmail(req.body.email)
+  const sellerId = await sellerController.getIdByUserId(userId)
 
-    req.session.isLogged = true
-    req.session.userId = userId
-    req.session.sellerId = sellerId
+  req.session.isLogged = true
+  req.session.userId = userId
+  req.session.sellerId = sellerId
 
-    res.json(sellerId)
-  } catch (err) {
-    throw boom.unauthorized()
-  }
+  res.json(sellerId)
+}))
+
+router.post('/user', asyncMiddleware(async (req, res) => {
+  const isAuthenticated = await loginController.authenticate(req.body)
+
+  if (!isAuthenticated) throw boom.unauthorized()
+
+  const userId = await userController.getIdByEmail(req.body.email)
+
+  req.session.isLogged = true
+  req.session.userId = userId
+
+  res.json(userId)
 }))
 
 module.exports = router

@@ -57,6 +57,10 @@ router.post('/', asyncMiddleware(async (req, res) => {
 
       await loginController.create(login)
 
+      req.session.isLogged = true
+      req.session.userId = userId
+      req.session.sellerId = sellerId
+
       res.status(201).json(seller)
     } catch (err) {
       await sellerController.delete(seller.id)

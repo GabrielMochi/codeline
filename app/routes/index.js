@@ -2,6 +2,7 @@ const { Router } = require('express')
 const boom = require('boom')
 const api = require('./api')
 const login = require('./login')
+const logout = require('./logout')
 const { version } = require('../../package.json')
 
 const router = Router()
@@ -17,6 +18,7 @@ router.all('*', (req, res, next) => {
 })
 
 router.use('/login', login)
+router.use('/logout', logout)
 router.use('/api', api)
 
 router.get('/', (req, res) => {
