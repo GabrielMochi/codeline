@@ -1,8 +1,7 @@
 const { Router } = require('express')
 const boom = require('boom')
 const { asyncMiddleware } = require('../../util/expressUtilities')
-
-
+const CouponQRCode = require('../../models/CouponQRCode')
 const QRCodeController = require('../../controllers/QRCodeController')
 
 const CouponQRCodeController = require(
@@ -28,11 +27,11 @@ router.get('/create/:couponId', asyncMiddleware(async (req, res) => {
   const hash = await qrCodeController.create()
 
   try {
-    const couponQRCode = { hash, couponId }
+    const couponQRCode = new CouponQRCode(hash, couponId)
 
     await couponQRCodeController.create(couponQRCode)
 
-    res.json(`https://${ req.headers.host }/api/couponQRCode/${ hash }`)
+    res.json(hash)
   } catch (err) {
     await qrCodeController.setAsUsed(hash)
 
