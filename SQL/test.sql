@@ -13,6 +13,7 @@ INSERT INTO user (
 	city,
 	address,
 	number,
+    cpf,
 	complement
 ) VALUES (
 	0,
@@ -27,6 +28,7 @@ INSERT INTO user (
     'São Paulo',
     'Av. Brasil',
     3363,
+    '49686459880',
     'Apt 31 Bl 2'
 );
 

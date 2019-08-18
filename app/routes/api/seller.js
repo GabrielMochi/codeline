@@ -1,6 +1,9 @@
 const { Router } = require('express')
 const boom = require('boom')
 const { asyncMiddleware } = require('../../util/expressUtilities')
+const User = require('../../models/User')
+const Seller = require('../../models/Seller')
+const Login = require('../../models/Login')
 const SellerController = require('../../controllers/SellerController')
 const LoginController = require('../../controllers/LoginController')
 const UserController = require('../../controllers/UserController')
@@ -24,34 +27,35 @@ router.get('/:id', asyncMiddleware(async (req, res) => {
 router.post('/', asyncMiddleware(async (req, res) => {
   if (!req.body) throw boom.badRequest('Please provide a body content.')
 
-  const user = {
-    email: req.body.email,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    birth: req.body.birth,
-    telephone: req.body.telephone,
-    zipcode: req.body.zipcode,
-    country: req.body.country,
-    state: req.body.state,
-    city: req.body.city,
-    address: req.body.address,
-    number: req.body.number,
-    complement: req.body.complement,
-    profilePhoto: req.body.profilePhoto
-  }
+  const user = new User(
+    null,
+    req.body.email,
+    req.body.firstName,
+    req.body.lastName,
+    req.body.birth,
+    req.body.telephone,
+    req.body.zipcode,
+    req.body.country,
+    req.body.state,
+    req.body.city,
+    req.body.address,
+    req.body.number,
+    req.body.cpf,
+    req.body.complement,
+    req.body.profilePhoto
+  )
 
   user.id = await userController.create(user)
 
   try {
-    const seller = { userId: user.id }
+    const seller = new Seller(null, user.id)
 
     seller.id = await sellerController.create(seller)
 
     try {
-      await loginController.create({
-        email: req.body.email,
-        password: req.body.password
-      })
+      const login = new Login(req.body.email, req.body.password)
+
+      await loginController.create(login)
 
       res.status(201).json(seller)
     } catch (err) {

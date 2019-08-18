@@ -13,14 +13,16 @@ class User {
    * @param {String} city
    * @param {String} address
    * @param {Number} number
+   * @param {String} cpf
    * @param {String} complement
+   * @param {String} profilePhoto
    */
   constructor (
     id, email, firstName,
     lastName, birth, telephone,
     zipcode, country, state,
-    city, address, number,
-    complement = null
+    city, address, number, cpf,
+    complement = null, profilePhoto = null,
   ) {
     this.id = id
     this.email = email
@@ -34,7 +36,9 @@ class User {
     this.city = city
     this.address = address
     this.number = number
+    this.cpf = cpf
     this.complement = complement
+    this.profilePhoto = profilePhoto
   }
 
 }

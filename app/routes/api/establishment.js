@@ -33,6 +33,11 @@ router.get('/getBySellerId/:id', asyncMiddleware(async (req, res) => {
 router.post('/', asyncMiddleware(async (req, res) => {
   if (!req.body) throw boom.badRequest('Please provide a body content.')
 
+  req.body.sellerId = req.body.sellerId || req.session.sellerId
+
+  if (req.body.sellerId !== req.session.sellerId)
+    throw boom.unauthorized()
+
   const establishmentId = await establishmentController.create(req.body)
 
   res.status(201).json(establishmentId)

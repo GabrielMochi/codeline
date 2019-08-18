@@ -21,6 +21,7 @@ const userSchema = Joi.object().keys({
   city: Joi.string().max(45).required(),
   address: Joi.string().max(255).required(),
   number: Joi.number().required(),
+  cpf: Joi.string().required(),
   complement: Joi.string().max(15).allow('').allow(null).optional(),
   profilePhoto: Joi.string().max(45).allow('').allow(null).optional()
 })

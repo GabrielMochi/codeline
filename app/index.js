@@ -10,7 +10,7 @@ const app = express()
 app.use(cors({
   origin: [
     /http(s)?:\/\/localhost:7021/g,
-    /http(s)?:\/\/starshopping\.eastus\.cloudapp\.azure\.com/g
+    /http(s)?:\/\/codelinepds\.heroku\.com/g
   ]
 }))
 
@@ -27,7 +27,7 @@ app.use(bodyParser.json())
 app.use('/', routes)
 
 app.use((err, req, res, next) => {
-  if (err.isBoom) err = boom.badImplementation(err)
+  if (!err.isBoom) err = boom.badImplementation(err)
   if (err.isServer) console.error(err)
   return res.status(err.output.statusCode).json(err.output.payload)
 })
