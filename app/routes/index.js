@@ -10,6 +10,7 @@ const router = Router()
 router.all('*', (req, res, next) => {
   if (req.path.startsWith('/api')) {
     if (req.path === '/api/seller' && req.method === 'POST') return next()
+    if (req.path === '/api/consumer' && req.method === 'POST') return next()
     if (req.session.isLogged) return next()
     else return next(boom.unauthorized())
   }
