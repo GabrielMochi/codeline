@@ -95,3 +95,5 @@ class ConsumerRepository extends Repository {
   }
 
 }
+
+module.exports = ConsumerRepository
