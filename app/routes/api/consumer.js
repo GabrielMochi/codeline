@@ -1,27 +1,27 @@
 const { Router } = require('express')
 const boom = require('boom')
 const { asyncMiddleware } = require('../../util/expressUtilities')
-const Seller = require('../../models/Seller')
+const Consumer = require('../../models/Consumer')
 const Login = require('../../models/Login')
 const User = require('../../models/User')
-const SellerController = require('../../controllers/SellerController')
+const ConsumerController = require('../../controllers/ConsumerController')
 const LoginController = require('../../controllers/LoginController')
 const UserController = require('../../controllers/UserController')
 
 const router = Router()
-const sellerController = new SellerController()
+const consumerController = new ConsumerController()
 const loginController = new LoginController()
 const userController = new UserController()
 
 router.get('/:id', asyncMiddleware(async (req, res) => {
   const id = parseInt(req.params.id, 10)
 
-  if (req.session.sellerId !== id)
+  if (req.session.consumerId !== id)
     throw boom.unauthorized()
 
-  const seller = await sellerController.getById(id)
+  const consumer = await consumerController.getById(id)
 
-  res.json(seller)
+  res.json(consumer)
 }))
 
 router.post('/', asyncMiddleware(async (req, res) => {
@@ -48,9 +48,9 @@ router.post('/', asyncMiddleware(async (req, res) => {
   user.id = await userController.create(user)
 
   try {
-    const seller = new Seller(null, user.id)
+    const consumer = new Consumer(null, user.id)
 
-    seller.id = await sellerController.create(seller)
+    consumer.id = await consumerController.create(consumer)
 
     try {
       const login = new Login(req.body.email, req.body.password)
@@ -59,11 +59,11 @@ router.post('/', asyncMiddleware(async (req, res) => {
 
       req.session.isLogged = true
       req.session.userId = userId
-      req.session.sellerId = sellerId
+      req.session.consumerId = consumerId
 
-      res.status(201).json(seller)
+      res.status(201).json(consumer)
     } catch (err) {
-      await sellerController.delete(seller.id)
+      await consumerController.delete(consumer.id)
       throw err
     }
   } catch (err) {
@@ -75,10 +75,10 @@ router.post('/', asyncMiddleware(async (req, res) => {
 router.put('/:id', asyncMiddleware(async (req, res) => {
   const id = parseInt(req.params.id, 10)
 
-  if (req.session.sellerId !== id)
+  if (req.session.consumerId !== id)
     throw boom.unauthorized()
 
-  await sellerController.update(id, req.body)
+  await consumerController.update(id, req.body)
 
   res.json()
 }))
@@ -86,10 +86,10 @@ router.put('/:id', asyncMiddleware(async (req, res) => {
 router.delete('/:id', asyncMiddleware(async (req, res) => {
   const id = parseInt(req.params.id, 10)
 
-  if (req.session.sellerId !== id)
+  if (req.session.consumerId !== id)
     throw boom.unauthorized()
 
-  await sellerController.delete(id)
+  await consumerController.delete(id)
 
   res.json()
 }))
