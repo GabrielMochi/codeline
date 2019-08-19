@@ -58,8 +58,8 @@ router.post('/', asyncMiddleware(async (req, res) => {
       await loginController.create(login)
 
       req.session.isLogged = true
-      req.session.userId = userId
-      req.session.consumerId = consumerId
+      req.session.userId = user.id
+      req.session.consumerId = consumer.id
 
       res.status(201).json(consumer)
     } catch (err) {
