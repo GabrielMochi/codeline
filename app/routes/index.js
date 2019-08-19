@@ -22,7 +22,7 @@ router.use('/logout', logout)
 router.use('/api', api)
 
 router.get('/', (req, res) => {
-  res.end(`CodeLine API v.${ version }`)
+  res.redirect('/api')
 })
 
 module.exports = router
