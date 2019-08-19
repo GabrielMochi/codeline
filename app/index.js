@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const cors = require('cors')
 const boom = require('boom')
+const morgan = require('morgan')
 const routes = require('./routes')
 
 const app = express()
@@ -23,6 +24,8 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+app.use(morgan()) // HTTP request logger middleware
 
 app.use('/', routes)
 
